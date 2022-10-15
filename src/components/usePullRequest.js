@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FaGithubSquare} from "react-icons/fa";
 import * as ReactBootStrap from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
-// import { Spinner } from "react-bootstrap";
 
 const UsePullRequest = () => {
   const [state, setState] = useState([]);
