@@ -9,6 +9,7 @@ const UsePullRequest = () => {
   const [page, setpage] = useState(2);
 
   const divStyle = {
+    width: "85%",
     marginLeft:"auto" , 
     marginRight:"auto"
   }
@@ -76,7 +77,7 @@ const UsePullRequest = () => {
         hasMore={hasMore}
         loader={"Loading..."}
       >
-        <div className="w-90 p-3 shadow-sm p-3 mb-5 bg-white rounded" style={divStyle}>
+        <div className="shadow-sm p-3 mb-5 bg-white rounded" style={divStyle}>
         <ReactBootStrap.Table striped bordered hover responsive="sm">
           <thead>
             <tr>
