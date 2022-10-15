@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaGithubSquare, FaTruckLoading } from "react-icons/fa";
+import { FaGithubSquare} from "react-icons/fa";
 import * as ReactBootStrap from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 // import { Spinner } from "react-bootstrap";
@@ -27,7 +27,7 @@ const UsePullRequest = () => {
 
   const fetchList = async () => {
     const res = await fetch(
-      `https://api.github.com/repos/neovim/neovim/pulls?state=all&per=2&per_page=100&limit=30`
+      `https://api.github.com/repos/neovim/neovim/pulls?state=all&per=${page}&per_page=100&limit=30`
     );
     const data = await res.json();
     return data;
@@ -44,7 +44,7 @@ const UsePullRequest = () => {
     setpage(page + 1);
   }
 
-  
+
   const pullRequests =
     state.length !== 0
       ? state.map((item) => (
