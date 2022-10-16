@@ -8,7 +8,6 @@ const UsePullRequest = () => {
   const [state, setState] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(2);
-  // const [reviewer, setReviewers] = useState([]);
 
 
   //Styling
@@ -23,7 +22,7 @@ const UsePullRequest = () => {
   //fetching all pull requests from base_url
   const listOfRequests = async () => {
     const result = await fetch(
-      process.env.REACT_APP_BASE_URL + `&per=1&per_page=100&limit=30`,
+      process.env.REACT_APP_BASE_URL + `&page=1&per_page=100&limit=30`,
       {
         method: 'get',
         headers: {
@@ -32,7 +31,6 @@ const UsePullRequest = () => {
       }
     );
     const list = await result.json();
-    console.log(list);
     setState(list);
   };
 
@@ -44,7 +42,7 @@ const UsePullRequest = () => {
   //fetching pull request from next page
   const fetchList = async () => {
     const res = await fetch(
-      process.env.REACT_APP_BASE_URL + `&per=${page}&per_page=100&limit=30`
+      process.env.REACT_APP_BASE_URL + `&page=${page}&per_page=100`
     );
     const data = await res.json();
     return data;
@@ -52,13 +50,15 @@ const UsePullRequest = () => {
 
   const fetchData = async () => {
     const prevData = await fetchList();
+    console.log("Printing :", prevData.length);
     setState([...state, ...prevData]);
-    if (prevData.length === 0 || prevData.length < 400) {
+    if (prevData.length === 0) {
       setHasMore(false);
-      console.log("Printing");
     }
     setPage(page + 1);
   };
+
+
 
   //mapping list into table
   const pullRequests =
@@ -85,10 +85,13 @@ const UsePullRequest = () => {
         ))
       : console.log("No Pull Requests Found");
 
+
+
+      
   return (
     <>
       <InfiniteScroll
-        dataLength={state.length} //This is important field to render the next data
+        dataLength={state.length}
         next={fetchData}
         hasMore={hasMore}
         loader={<Loading />}
