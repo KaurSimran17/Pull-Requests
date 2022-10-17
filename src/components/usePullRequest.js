@@ -18,16 +18,18 @@ const UsePullRequest = () => {
   //fetching all pull requests from base_url
   const listOfRequests = async () => {
     const result = await fetch(
-      process.env.REACT_APP_BASE_URL + `&page=1&per_page=100&limit=400`,
+      process.env.REACT_APP_BASE_URL + `&page=${page}&per_page=100`,
       {
         method: "get",
         headers: {
-          Authorization: "token" + process.env.REACT_APP_ACCESS_TOKEN,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
         },
       }
     );
     const list = await result.json();
-    console.log(list);
+    console.log("list :" , list);
     setState(list);
   };
 
@@ -38,7 +40,15 @@ const UsePullRequest = () => {
   //fetching pull request from next page
   const fetchList = async () => {
     const res = await fetch(
-      process.env.REACT_APP_BASE_URL + `&page=${page}&per_page=100&limits=400`
+      process.env.REACT_APP_BASE_URL + `&page=${page}&per_page=100`,
+      {
+        method: "get",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
+        },
+      }
     );
     const data = await res.json();
     return data;
@@ -64,9 +74,9 @@ const UsePullRequest = () => {
             <td className="text-capitalize">{item.base.repo.default_branch}</td>
             <td className="text-center">-</td>
             <td>{item.head.user.login}</td>
-            <td>{item.created_at}</td>
+            <td className="text-nowrap">{item.created_at}</td>
             <td className="text-center">-</td>
-            <td>
+            <td className="text-nowrap">
               {item.labels.map((index) => {
                 return <li key={index.id}>{index.name}</li>;
               })}
@@ -91,10 +101,12 @@ const UsePullRequest = () => {
         <div className="shadow p-3 mb-5 bg-white rounded" style={divStyle}>
           <ReactBootStrap.Table striped bordered hover responsive>
             <thead>
-              <tr style={{
-                            backgroundColor: 'black',
-                            color: "white"
-                        }}>
+              <tr
+                style={{
+                  backgroundColor: "black",
+                  color: "white",
+                }}
+              >
                 <th className="text-center">S.No</th>
                 <th className="text-center">Title</th>
                 <th className="text-nowrap text-center">Base Branch</th>

@@ -12,7 +12,7 @@ const Loading = () => {
 
   return (
     <div style={spinnerStyle}>
-      <Spinner animation="border" />;
+      <Spinner animation="border" />
     </div>
   );
 };
