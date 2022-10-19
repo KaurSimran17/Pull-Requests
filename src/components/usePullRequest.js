@@ -3,6 +3,8 @@ import { FaGithubSquare } from "react-icons/fa";
 import * as ReactBootStrap from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "./spinner";
+import Reviewers from "./Reviewers";
+
 
 const UsePullRequest = () => {
   const [state, setState] = useState([]);
@@ -11,8 +13,8 @@ const UsePullRequest = () => {
 
   //Styling
   const divStyle = {
-    marginLeft: "10px",
-    marginRight: "10px",
+    marginLeft: "5px",
+    marginRight: "5px"
   };
 
   //fetching all pull requests from base_url
@@ -29,13 +31,15 @@ const UsePullRequest = () => {
       }
     );
     const list = await result.json();
-    console.log("list :" , list);
+    console.log("list :", list);
     setState(list);
   };
 
   useEffect(() => {
     listOfRequests();
   }, []);
+
+
 
   //fetching pull request from next page
   const fetchList = async () => {
@@ -75,7 +79,9 @@ const UsePullRequest = () => {
             <td className="text-center">-</td>
             <td>{item.head.user.login}</td>
             <td className="text-nowrap">{item.created_at}</td>
-            <td className="text-center">-</td>
+            <td className="text-center text-nowrap">
+              {<Reviewers number={item.number} id={item.id} />}
+            </td>
             <td className="text-nowrap">
               {item.labels.map((index) => {
                 return <li key={index.id}>{index.name}</li>;

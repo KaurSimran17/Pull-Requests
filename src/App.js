@@ -5,7 +5,7 @@ import UsePullRequest from './components/usePullRequest';
 const App = () => {
   const myStyle = {
     color: "white",
-    backgroundColor: "DodgerBlue",
+    // backgroundColor: "DodgerBlue",
     padding: "10px",
     fontFamily: "Sans-Serif"
   };
@@ -16,12 +16,12 @@ const App = () => {
     justifyContent:"center" , 
     marginLeft:"auto" , 
     marginRight:"auto",
-    borderRadius: "35px"
+    marginTop:"20px"
   };
   
   return (
 <>
-<div className="w-50 p-3 rounded" style={divStyle}>
+<div className="w-50 p-3 square bg-primary rounded" style={divStyle}>
   <h1 style={myStyle} className="text-center">Neovim Repoistory Pull Requests</h1></div>
 <UsePullRequest/>
 </>
